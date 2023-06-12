@@ -1,20 +1,20 @@
 package ru.course.addressbook.model;
 
 public class ContactData {
-    private final String firtsName;
+    private final String firstName;
     private final String secondName;
     private final String phoneNumber;
     private final String email;
 
-    public ContactData(String firtsName, String secondName, String phoneNumber, String email) {
-        this.firtsName = firtsName;
+    public ContactData(String firstName, String secondName, String phoneNumber, String email) {
+        this.firstName = firstName;
         this.secondName = secondName;
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
 
-    public String getFirtsName() {
-        return firtsName;
+    public String getFirstName() {
+        return firstName;
     }
 
     public String getSecondName() {
