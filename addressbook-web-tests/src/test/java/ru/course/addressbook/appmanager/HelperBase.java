@@ -11,6 +11,11 @@ public class HelperBase {
         this.wd = wd;
     }
 
+    protected void open(String url)
+    {
+        wd.get(url);
+    }
+
     protected void click(By locator) {
         wd.findElement(locator).click();
     }

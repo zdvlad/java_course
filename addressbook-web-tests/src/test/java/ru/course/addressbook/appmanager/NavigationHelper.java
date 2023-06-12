@@ -9,8 +9,8 @@ public class NavigationHelper extends HelperBase{
         super(wd);
     }
 
-    protected void openMainPage() {
-        wd.get("http://localhost/addressbook/");
+    public void openMainPage() {
+        open("http://localhost/addressbook/");
     }
 
     public void returnHomePage() {
