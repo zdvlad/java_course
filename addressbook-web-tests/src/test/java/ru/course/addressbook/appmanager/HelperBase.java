@@ -11,8 +11,7 @@ public class HelperBase {
         this.wd = wd;
     }
 
-    protected void open(String url)
-    {
+    protected void open(String url) {
         wd.get(url);
     }
 
@@ -33,5 +32,13 @@ public class HelperBase {
         } catch (NoAlertPresentException e) {
             return false;
         }
+    }
+
+    public void acceptAlert() {
+        wd.switchTo().alert().accept();
+    }
+
+    public void dismissAlert() {
+        wd.switchTo().alert().dismiss();
     }
 }
