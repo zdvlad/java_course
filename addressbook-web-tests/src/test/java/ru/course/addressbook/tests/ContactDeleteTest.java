@@ -1,7 +1,6 @@
 package ru.course.addressbook.tests;
 
 import org.testng.annotations.Test;
-import ru.course.addressbook.model.ContactData;
 
 public class ContactDeleteTest extends TestBase{
 

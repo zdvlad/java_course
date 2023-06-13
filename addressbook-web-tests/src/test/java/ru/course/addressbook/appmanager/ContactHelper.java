@@ -36,7 +36,13 @@ public class ContactHelper extends HelperBase{
     public void submitContactDeleteByAlert() {
         if(isAlertPresent())
             acceptAlert();
-        else
-            wd.switchTo().activeElement();
+    }
+
+    public void editContact() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public void submitEditContact() {
+        click(By.xpath("//input[22]"));
     }
 }
