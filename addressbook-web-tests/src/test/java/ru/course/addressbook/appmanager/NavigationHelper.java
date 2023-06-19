@@ -13,10 +13,6 @@ public class NavigationHelper extends HelperBase{
         open("http://localhost/addressbook/");
     }
 
-    public void returnHomePage() {
-        click(By.linkText("home page"));
-    }
-
     public void gotoGroupPage() {
         click(By.linkText("groups"));
     }

@@ -45,4 +45,19 @@ public class ContactHelper extends HelperBase{
     public void submitEditContact() {
         click(By.xpath("//input[22]"));
     }
+
+    public void returnHomePage() {
+        click(By.linkText("home page"));
+    }
+
+    public boolean isThereContact() {
+        return isElementExist(By.name("entry"));
+    }
+
+    public void createContact(ContactData contactData) {
+        initContactCreation();
+        fillContactsData(contactData);
+        submitContactCreation();
+        returnHomePage();
+    }
 }
