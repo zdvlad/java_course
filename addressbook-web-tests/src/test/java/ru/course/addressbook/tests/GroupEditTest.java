@@ -8,10 +8,14 @@ public class GroupEditTest extends TestBase{
     @Test
     public void testGroupEdit() throws Exception {
         app.getNavigationHelper().gotoGroupPage();
+        if(! app.getGroupHelper().isThereGroup())
+        {
+            app.getGroupHelper().createGroup(new GroupData("test", "test1", "test2"));
+        }
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().initEditGroup();
         app.getGroupHelper().fillGroupParams(new GroupData("Телефон", "Контакты", "Симка1"));
         app.getGroupHelper().submitEditGroup();
-        app.getNavigationHelper().returnToGroupPage();
+        app.getGroupHelper().returnToGroupPage();
     }
 }
