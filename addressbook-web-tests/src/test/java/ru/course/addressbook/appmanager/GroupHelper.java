@@ -49,7 +49,7 @@ public class GroupHelper extends HelperBase {
 
     public void createGroup(GroupData groupData) {
         initGroupCreation();
-        fillGroupParams(new GroupData("test", "test1", "test2"));
+        fillGroupParams(groupData);
         submitGroupCreation();
         returnToGroupPage();
     }
@@ -64,7 +64,7 @@ public class GroupHelper extends HelperBase {
         for(WebElement element : elements)
         {
             String name = element.getText();
-            String id = element.findElement(By.tagName("input")).getAttribute("value");
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             GroupData gd = new GroupData(id, name, null,null);
             group.add(gd);
         }
