@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.course.addressbook.model.GroupData;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class GroupEditTest extends TestBase{
 
         before.remove(before.size() -1);
         before.add(groupData);
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        Comparator<? super GroupData> byId = (x1, x2)->Integer.compare(x1.getId(),x2.getId());
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(before, after);
     }
 }
