@@ -14,12 +14,12 @@ public class GroupCreationTest extends TestBase {
     public void testGroupCreation() throws Exception {
         app.goTo().Group();
         List<GroupData> before =  app.group().list();
-        GroupData group = new GroupData("test1", null, null);
+        GroupData group = new GroupData().withName("test1");
         app.group().create(group);
         List<GroupData> after =  app.group().list();
         Assert.assertEquals(after.size(), before.size()+1);
 
-        group.setId(after.stream().max((x1,x2)->Integer.compare(x1.getId(), x2.getId())).get().getId());
+        group.withId(after.stream().max((x1, x2)->Integer.compare(x1.getId(), x2.getId())).get().getId());
         before.add(group);
         Comparator<? super GroupData> byId = (x1, x2)->Integer.compare(x1.getId(),x2.getId());
         before.sort(byId);

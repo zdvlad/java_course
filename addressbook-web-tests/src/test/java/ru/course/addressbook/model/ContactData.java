@@ -3,34 +3,40 @@ package ru.course.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-    private int id;
-    private final String firstName;
-    private final String secondName;
-    private final String phoneNumber;
-    private final String email;
+    private int id = 0;
+    private String firstName;
+    private String secondName;
+    private String phoneNumber;
+    private String email;
 
-    public ContactData(String firstName, String secondName, String phoneNumber, String email) {
-        this.id = 0;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
+
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
     }
 
-    public ContactData(int id, String firstName, String secondName, String phoneNumber, String email) {
-        this.id = id;
+    public ContactData withFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
+    }
+
+    public ContactData withSecondName(String secondName) {
         this.secondName = secondName;
+        return this;
+    }
+
+    public ContactData withPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {

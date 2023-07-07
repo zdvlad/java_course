@@ -7,14 +7,13 @@ import ru.course.addressbook.model.ContactData;
 
 import java.util.List;
 
-public class ContactDeleteTest extends TestBase{
+public class ContactDeleteTest extends TestBase {
 
     @BeforeMethod
-    public void ensurePredications()
-    {
-        if(! app.contact().isThereContact())
-        {
-            app.contact().create(new ContactData("Denis", "Zakharov", "9023557076", "z.d.vlad96@mail.ru"));
+    public void ensurePredications() {
+        if (!app.contact().isThereContact()) {
+            app.contact().create(new ContactData().withFirstName("Denis").withSecondName("Zakharov").
+                    withPhoneNumber("9023557076").withEmail("z.d.vlad96@mail.ru"));
         }
     }
 

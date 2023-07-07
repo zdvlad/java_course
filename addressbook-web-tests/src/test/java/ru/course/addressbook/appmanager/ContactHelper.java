@@ -87,24 +87,13 @@ public class ContactHelper extends HelperBase {
 
     public List<ContactData> list() {
         List<ContactData> contact = new ArrayList<ContactData>();
-        /*WebElement table = wd.findElement(By.xpath("//table[@id='maintable']/tbody"));
-        int countRows = Integer.parseInt(wd.findElement(By.id("search_count")).getText());
-        for (int i = 2; i < countRows + 2; i++) {
-            String firstName = table.findElement(By.xpath("//tr[" + i + "]/td[3]")).getText();
-            String secondName = table.findElement(By.xpath("//tr[" + i + "]/td[2]")).getText();
-            int id = Integer.parseInt(table.findElement(By.xpath("//tr[" + i + "]/td")).findElement(By.tagName("input")).getAttribute("value"));
-            ContactData gd = new ContactData(id, firstName, secondName, null, null);
-            contact.add(gd);
-        }*/
-
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[@name='entry']"));
         for(WebElement element: elements)
         {
             String firstName = element.findElement(By.xpath(".//td[3]")).getText();
             String secondName = element.findElement(By.xpath(".//td[2]")).getText();
             int id = Integer.parseInt(element.findElement(By.xpath(".//td")).findElement(By.tagName("input")).getAttribute("value"));
-            ContactData gd = new ContactData(id, firstName, secondName, null, null);
-            contact.add(gd);
+            contact.add(new ContactData().withId(id).withFirstName(firstName).withSecondName(secondName));
         }
         return contact;
     }

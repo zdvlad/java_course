@@ -16,7 +16,8 @@ public class ContactEditTest extends TestBase {
     {
         if(! app.contact().isThereContact())
         {
-            app.contact().create(new ContactData("Denis", "Zakharov", "9023557076", "z.d.vlad96@mail.ru"));
+            app.contact().create(new ContactData().withFirstName("Denis").withSecondName("Zakharov").
+                    withPhoneNumber("9023557076").withEmail("z.d.vlad96@mail.ru"));
         }
     }
 
@@ -24,7 +25,8 @@ public class ContactEditTest extends TestBase {
     public void testContactEdit() throws Exception {
         List<ContactData> before = app.contact().list();
         int index = before.size();
-        ContactData contactData = new ContactData(before.get(index-1).getId(), "Mark", "Zakharov", "9023557076", "z.d.vlad96@mail.ru");
+        ContactData contactData = new ContactData().withId(before.get(index-1).getId()).withFirstName("Mark").
+                withSecondName("Zakharov").withPhoneNumber("9023557076").withEmail("z.d.vlad96@mail.ru");
         app.contact().edit(index, contactData);
         List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size());
