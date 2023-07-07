@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.course.addressbook.model.ContactData;
-import ru.course.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
@@ -15,19 +14,19 @@ public class ContactEditTest extends TestBase {
     @BeforeMethod
     public void ensurePredications()
     {
-        if(! app.getContactHelper().isThereContact())
+        if(! app.contact().isThereContact())
         {
-            app.getContactHelper().createContact(new ContactData("Denis", "Zakharov", "9023557076", "z.d.vlad96@mail.ru"));
+            app.contact().create(new ContactData("Denis", "Zakharov", "9023557076", "z.d.vlad96@mail.ru"));
         }
     }
 
     @Test
     public void testContactEdit() throws Exception {
-        List<ContactData> before = app.getContactHelper().getContactList();
+        List<ContactData> before = app.contact().list();
         int index = before.size();
         ContactData contactData = new ContactData(before.get(index-1).getId(), "Mark", "Zakharov", "9023557076", "z.d.vlad96@mail.ru");
-        app.getContactHelper().editingContact(index, contactData);
-        List<ContactData> after = app.getContactHelper().getContactList();
+        app.contact().edit(index, contactData);
+        List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size());
         before.remove(index - 1);
 

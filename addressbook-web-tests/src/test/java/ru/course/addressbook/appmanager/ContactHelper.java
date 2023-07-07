@@ -64,28 +64,28 @@ public class ContactHelper extends HelperBase {
         return isElementExist(By.name("entry"));
     }
 
-    public void createContact(ContactData contactData) {
+    public void create(ContactData contactData) {
         initContactCreation();
         fillContactsData(contactData);
         submitContactCreation();
         returnHomePage();
     }
 
-    public void editingContact(int index, ContactData contactData) {
+    public void edit(int index, ContactData contactData) {
         editContact(index);//передается номер строки, которую редактируем
         fillContactsData(contactData);
         submitEditContact();
         returnToMainPage();
     }
 
-    public void deletingContact(int index) {
+    public void delete(int index) {
         selectContact(index);
         deleteContact();
         submitContactDeleteByAlert();
         returnToMainPage();
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contact = new ArrayList<ContactData>();
         /*WebElement table = wd.findElement(By.xpath("//table[@id='maintable']/tbody"));
         int countRows = Integer.parseInt(wd.findElement(By.id("search_count")).getText());

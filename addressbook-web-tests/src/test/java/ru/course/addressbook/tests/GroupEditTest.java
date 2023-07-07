@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import ru.course.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupEditTest extends TestBase{
@@ -14,21 +13,21 @@ public class GroupEditTest extends TestBase{
     @BeforeMethod
     public void ensurePredications()
     {
-        app.getNavigationHelper().gotoGroupPage();
-        if(! app.getGroupHelper().isThereGroup())
+        app.goTo().Group();
+        if(! app.group().isThereGroup())
         {
-            app.getGroupHelper().createGroup(new GroupData( "test1", null, null));
+            app.group().create(new GroupData( "test1", null, null));
         }
     }
 
     @Test
     public void testGroupEdit() throws Exception {
 
-        List<GroupData> before =  app.getGroupHelper().getGroupList();
+        List<GroupData> before =  app.group().list();
         int index = before.size() - 1;
         GroupData groupData = new GroupData(before.get(index).getId(), "test1", "test2", "test3");
-        app.getGroupHelper().editingGroup(index, groupData);
-        List<GroupData> after =  app.getGroupHelper().getGroupList();
+        app.group().editingGroup(index, groupData);
+        List<GroupData> after =  app.group().list();
         Assert.assertEquals(after.size(), before.size());
 
         before.remove(index);

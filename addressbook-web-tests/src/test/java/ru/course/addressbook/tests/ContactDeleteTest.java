@@ -12,18 +12,18 @@ public class ContactDeleteTest extends TestBase{
     @BeforeMethod
     public void ensurePredications()
     {
-        if(! app.getContactHelper().isThereContact())
+        if(! app.contact().isThereContact())
         {
-            app.getContactHelper().createContact(new ContactData("Denis", "Zakharov", "9023557076", "z.d.vlad96@mail.ru"));
+            app.contact().create(new ContactData("Denis", "Zakharov", "9023557076", "z.d.vlad96@mail.ru"));
         }
     }
 
     @Test
     public void testContactDelete() throws Exception {
-        List<ContactData> before = app.getContactHelper().getContactList();
+        List<ContactData> before = app.contact().list();
         int index = before.size() - 1;
-        app.getContactHelper().deletingContact(index);
-        List<ContactData> after = app.getContactHelper().getContactList();
+        app.contact().delete(index);
+        List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() - 1);
 
         before.remove(index);
