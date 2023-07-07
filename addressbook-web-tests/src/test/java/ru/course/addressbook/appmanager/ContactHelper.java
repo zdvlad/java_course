@@ -7,7 +7,9 @@ import ru.course.addressbook.model.ContactData;
 import ru.course.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -43,9 +45,13 @@ public class ContactHelper extends HelperBase {
             acceptAlert();
     }
 
-    public void editContact(int index) {
-        int col = index + 1;//увеличиваем на 1, так как 1-ая строка это заголовки таблицы. Данные начинаются с tr[2]
-        click(By.xpath("//table[@id='maintable']/tbody/tr["+col+"]/td[8]/a/img"));
+    private void editContactById(ContactData contactData) {
+        click(By.xpath("//table[@id='maintable']/tbody/tr/td/a[@href='edit.php?id=" + contactData.getId() + "']"));
+        //click(By.xpath("//table[@id='maintable']/tbody/tr[" + col + "]/td[8]/a/img"));
+    }
+
+    private void selectContactById(ContactData contactData) {
+        click(By.xpath("//table[@id='maintable']/tbody/tr/td/input[@value='" + contactData.getId() + "']"));
     }
 
     public void submitEditContact() {
@@ -71,25 +77,25 @@ public class ContactHelper extends HelperBase {
         returnHomePage();
     }
 
-    public void edit(int index, ContactData contactData) {
-        editContact(index);//передается номер строки, которую редактируем
+    public void edit(ContactData contactData) {
+        editContactById(contactData);//передается номер строки, которую редактируем
         fillContactsData(contactData);
         submitEditContact();
         returnToMainPage();
     }
 
-    public void delete(int index) {
-        selectContact(index);
+    public void delete(ContactData contactData) {
+        selectContactById(contactData);
         deleteContact();
         submitContactDeleteByAlert();
         returnToMainPage();
     }
 
+
     public List<ContactData> list() {
         List<ContactData> contact = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[@name='entry']"));
-        for(WebElement element: elements)
-        {
+        for (WebElement element : elements) {
             String firstName = element.findElement(By.xpath(".//td[3]")).getText();
             String secondName = element.findElement(By.xpath(".//td[2]")).getText();
             int id = Integer.parseInt(element.findElement(By.xpath(".//td")).findElement(By.tagName("input")).getAttribute("value"));
@@ -97,4 +103,17 @@ public class ContactHelper extends HelperBase {
         }
         return contact;
     }
+
+    public Set<ContactData> all() {
+        Set<ContactData> contact = new HashSet<>();
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[@name='entry']"));
+        for (WebElement element : elements) {
+            String firstName = element.findElement(By.xpath(".//td[3]")).getText();
+            String secondName = element.findElement(By.xpath(".//td[2]")).getText();
+            int id = Integer.parseInt(element.findElement(By.xpath(".//td")).findElement(By.tagName("input")).getAttribute("value"));
+            contact.add(new ContactData().withId(id).withFirstName(firstName).withSecondName(secondName));
+        }
+        return contact;
+    }
+
 }

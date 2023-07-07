@@ -13,7 +13,7 @@ public class NavigationHelper extends HelperBase{
         open("http://localhost/addressbook/");
     }
 
-    public void Group() {
+    public void groupPage() {
         click(By.linkText("groups"));
     }
 

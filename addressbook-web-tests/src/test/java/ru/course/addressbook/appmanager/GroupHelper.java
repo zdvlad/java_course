@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import ru.course.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupHelper extends HelperBase {
     public GroupHelper(WebDriver wd) {
@@ -27,8 +29,8 @@ public class GroupHelper extends HelperBase {
         type(By.name("group_footer"), groupData.getFooter());
     }
 
-    public void selectGroup(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    private void selectGroupById(int id) {
+        wd.findElement(By.xpath("//input[@value = '" + id + "']")).click();
     }
 
     public void deleteSelectedGroup() {
@@ -54,19 +56,20 @@ public class GroupHelper extends HelperBase {
         returnToGroupPage();
     }
 
-    public void editingGroup(int index, GroupData groupData) {
-        selectGroup(index);
+    public void edit(GroupData group) {
+        selectGroupById(group.getId());
         initEditGroup();
-        fillGroupParams(groupData);
+        fillGroupParams(group);
         submitEditGroup();
         returnToGroupPage();
     }
 
-    public void delete(int index) {
-        selectGroup(index);
+    public void delete(GroupData group) {
+        selectGroupById(group.getId());
         deleteSelectedGroup();
         returnToGroupPage();
     }
+
 
     public boolean isThereGroup() {
         return isElementExist(By.name("selected[]"));
@@ -82,4 +85,16 @@ public class GroupHelper extends HelperBase {
         }
         return group;
     }
+
+    public Set<GroupData> all() {
+        Set<GroupData> group = new HashSet<GroupData>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        for (WebElement element : elements) {
+            String name = element.getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            group.add(new GroupData().withId(id).withName(name));
+        }
+        return group;
+    }
+
 }

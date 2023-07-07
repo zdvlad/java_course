@@ -6,26 +6,24 @@ import ru.course.addressbook.model.ContactData;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ContactCreationTest extends TestBase {
 
     @Test
     public void testContactCreation() throws Exception {
-        List<ContactData> before = app.contact().list();
+        Set<ContactData> before = app.contact().all();
         ContactData contactData = new ContactData().
                 withFirstName("Anna").
                 withSecondName("Valova").
                 withPhoneNumber("98764332").
                 withEmail("valova@mail.ru");
         app.contact().create(contactData);
-        List<ContactData> after = app.contact().list();
+        Set<ContactData> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size() + 1);
 
-        contactData.withId(after.stream().max((c1, c2) -> Integer.compare(c1.getId(), c2.getId())).get().getId());
+        contactData.withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt());
         before.add(contactData);
-        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-        before.sort(byId);
-        after.sort(byId);
         Assert.assertEquals(before, after);
     }
 
