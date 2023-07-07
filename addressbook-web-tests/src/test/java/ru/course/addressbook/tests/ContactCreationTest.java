@@ -1,30 +1,29 @@
 package ru.course.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.course.addressbook.model.ContactData;
+import ru.course.addressbook.model.Contacts;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactCreationTest extends TestBase {
 
     @Test
     public void testContactCreation() throws Exception {
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
         ContactData contactData = new ContactData().
                 withFirstName("Anna").
                 withSecondName("Valova").
                 withPhoneNumber("98764332").
                 withEmail("valova@mail.ru");
         app.contact().create(contactData);
-        Set<ContactData> after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size() + 1);
+        Contacts after = app.contact().all();
 
-        contactData.withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt());
-        before.add(contactData);
-        Assert.assertEquals(before, after);
+        assertEquals(after.size(), before.size() + 1);
+        assertThat(after, equalTo(
+                before.withAdded(contactData.withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt()))));
     }
 
 
