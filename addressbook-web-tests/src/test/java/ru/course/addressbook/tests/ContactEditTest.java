@@ -17,8 +17,8 @@ public class ContactEditTest extends TestBase {
     {
         if(! app.contact().isThereContact())
         {
-            app.contact().create(new ContactData().withFirstName("Denis").withSecondName("Zakharov").
-                    withPhoneNumber("9023557076").withEmail("z.d.vlad96@mail.ru"));
+            app.contact().create(new ContactData().withFirstName("Denis").withLastName("Zakharov").
+                    withMobilePhoneNumber("9023557076").withEmail("z.d.vlad96@mail.ru"));
         }
     }
 
@@ -29,8 +29,8 @@ public class ContactEditTest extends TestBase {
         ContactData contactData = new ContactData()
                 .withId(modifiedContact.getId())
                 .withFirstName("Mark")
-                .withSecondName("Zakharov")
-                .withPhoneNumber("9023557076")
+                .withLastName("Zakharov")
+                .withMobilePhoneNumber("9023557076")
                 .withEmail("z.d.vlad96@mail.ru");
         app.contact().edit(contactData);
         Contacts after = app.contact().all();

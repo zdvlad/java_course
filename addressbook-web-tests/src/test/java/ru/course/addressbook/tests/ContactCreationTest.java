@@ -15,8 +15,8 @@ public class ContactCreationTest extends TestBase {
         Contacts before = app.contact().all();
         ContactData contactData = new ContactData().
                 withFirstName("Anna").
-                withSecondName("Valova").
-                withPhoneNumber("98764332").
+                withLastName("Valova").
+                withMobilePhoneNumber("98764332").
                 withEmail("valova@mail.ru");
         app.contact().create(contactData);
         Contacts after = app.contact().all();

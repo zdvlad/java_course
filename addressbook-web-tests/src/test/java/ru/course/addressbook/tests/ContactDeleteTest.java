@@ -14,8 +14,8 @@ public class ContactDeleteTest extends TestBase {
     @BeforeMethod
     public void ensurePredications() {
         if (!app.contact().isThereContact()) {
-            app.contact().create(new ContactData().withFirstName("Denis").withSecondName("Zakharov").
-                    withPhoneNumber("9023557076").withEmail("z.d.vlad96@mail.ru"));
+            app.contact().create(new ContactData().withFirstName("Denis").withLastName("Zakharov").
+                    withMobilePhoneNumber("9023557076").withEmail("z.d.vlad96@mail.ru"));
         }
     }
 
