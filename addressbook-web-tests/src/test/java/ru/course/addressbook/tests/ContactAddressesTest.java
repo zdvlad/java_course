@@ -28,7 +28,7 @@ public class ContactAddressesTest extends TestBase{
                 .collect(Collectors.joining("\n"));
     }
 
-    public static String cleaned(String emails) {
-        return emails.replaceAll("[-()]","");
+    public static String cleaned(String address) {
+        return address.replaceAll("[-()]","");
     }
 }
