@@ -1,11 +1,16 @@
 package ru.course.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Objects;
 
 public class GroupData {
     private int id = 0;
+    @Expose
     private String name;
+    @Expose
     private String header;
+    @Expose
     private String footer;
 
 
