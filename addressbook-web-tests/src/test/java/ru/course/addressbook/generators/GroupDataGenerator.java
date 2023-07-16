@@ -29,10 +29,10 @@ public class GroupDataGenerator {
 
     public static void main(String[] args) throws IOException {
         GroupDataGenerator generator = new GroupDataGenerator();
-        JCommander jc  = new JCommander(generator);
-        try{
+        JCommander jc = new JCommander(generator);
+        try {
             jc.parse(args);
-        } catch (ParameterException ex){
+        } catch (ParameterException ex) {
             jc.usage();
             return;
         }
@@ -41,29 +41,28 @@ public class GroupDataGenerator {
 
     private void run() throws IOException {
         List<GroupData> groups = generateGroupData(count);
-        if(format.equals("csv"))
+        if (format.equals("csv"))
             saveAsCSV(groups, new File(file));
-        else if(format.equals("json"))
+        else if (format.equals("json"))
             saveToJSON(groups, new File(file));
         else
             System.out.println(String.format("Unrecognized format %s", format));
     }
 
     private void saveAsCSV(List<GroupData> groups, File file) throws IOException {
-        Writer w = new FileWriter(file);
-        for(GroupData g : groups)
-        {
-            w.write(String.format("%s;%s;%s\n", g.getName(), g.getHeader(), g.getFooter()));
+        try (Writer w = new FileWriter(file)) {
+            for (GroupData g : groups) {
+                w.write(String.format("%s;%s;%s\n", g.getName(), g.getHeader(), g.getFooter()));
+            }
         }
-        w.close();
     }
 
     private void saveToJSON(List<GroupData> groups, File file) throws IOException {
-        Gson gson  = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(groups);
-        Writer w = new FileWriter(file);
-        w.write(json);
-        w.close();
+        try (Writer w = new FileWriter(file)) {
+            w.write(json);
+        }
     }
 
     private static List<GroupData> generateGroupData(int count) {

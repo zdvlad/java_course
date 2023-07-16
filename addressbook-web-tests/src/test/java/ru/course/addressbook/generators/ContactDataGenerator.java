@@ -27,10 +27,10 @@ public class ContactDataGenerator {
 
     public static void main(String[] args) throws IOException {
         ContactDataGenerator generator = new ContactDataGenerator();
-        JCommander jc  = new JCommander(generator);
-        try{
+        JCommander jc = new JCommander(generator);
+        try {
             jc.parse(args);
-        } catch (ParameterException ex){
+        } catch (ParameterException ex) {
             jc.usage();
             return;
         }
@@ -39,29 +39,28 @@ public class ContactDataGenerator {
 
     private void run() throws IOException {
         List<ContactData> contacts = generateContactData(count);
-        if(format.equals("csv"))
+        if (format.equals("csv"))
             saveAsCSV(contacts, new File(file));
-        else if(format.equals("json"))
+        else if (format.equals("json"))
             saveToJSON(contacts, new File(file));
         else
             System.out.println(String.format("Unrecognized format %s", format));
     }
 
     private void saveAsCSV(List<ContactData> contacts, File file) throws IOException {
-        Writer w = new FileWriter(file);
-        for(ContactData contact : contacts)
-        {
-            w.write(String.format("%s;%s;%s\n", contact.getFirstName(), contact.getLastName(), contact.getEmail()));
+        try (Writer w = new FileWriter(file)) {
+            for (ContactData contact : contacts) {
+                w.write(String.format("%s;%s;%s\n", contact.getFirstName(), contact.getLastName(), contact.getEmail()));
+            }
         }
-        w.close();
     }
 
     private void saveToJSON(List<ContactData> contacts, File file) throws IOException {
-        Gson gson  = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(contacts);
-        Writer w = new FileWriter(file);
-        w.write(json);
-        w.close();
+        try (Writer w = new FileWriter(file)) {
+            w.write(json);
+        }
     }
 
     private static List<ContactData> generateContactData(int count) {
@@ -70,8 +69,8 @@ public class ContactDataGenerator {
             contactData.add(new ContactData().withFirstName(String.format("FirstName %s", i))
                     .withLastName(String.format("LastName %s", i))
                     .withEmail(String.format("Email %s", i))
-            .withMobilePhoneNumber(String.format("8888%s",i))
-            .withAddress(String.format("ул. Пионерская %s", i+10)));
+                    .withMobilePhoneNumber(String.format("8888%s", i))
+                    .withAddress(String.format("ул. Пионерская %s", i + 10)));
         }
         return contactData;
     }

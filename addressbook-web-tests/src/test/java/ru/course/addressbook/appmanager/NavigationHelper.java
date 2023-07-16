@@ -9,10 +9,6 @@ public class NavigationHelper extends HelperBase{
         super(wd);
     }
 
-    public void openMainPage() {
-        open("http://localhost/addressbook/");
-    }
-
     public void groupPage() {
         click(By.linkText("groups"));
     }

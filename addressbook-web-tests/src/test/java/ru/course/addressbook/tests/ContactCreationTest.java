@@ -24,16 +24,18 @@ public class ContactCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContactsFromJson() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
-        String json = "";
-        String line = bufferedReader.readLine();
-        while (line != null){
-            json += line;
-            line = bufferedReader.readLine();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))) {
+            String json = "";
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                json += line;
+                line = bufferedReader.readLine();
+            }
+            Gson gson = new Gson();
+            List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
+            }.getType());
+            return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
-        Gson gson = new Gson();
-        List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());
-        return contacts.stream().map((g) -> new Object [] {g}).collect(Collectors.toList()).iterator();
     }
 
     @Test(dataProvider = "validContactsFromJson")
@@ -44,7 +46,7 @@ public class ContactCreationTest extends TestBase {
 
         assertEquals(after.size(), before.size() + 1);
         assertThat(after, equalTo(
-                before.withAdded(contactData.withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt()))));
+                before.withAdded(contactData.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
 
 
