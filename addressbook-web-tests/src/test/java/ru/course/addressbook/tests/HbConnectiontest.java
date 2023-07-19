@@ -39,10 +39,11 @@ public class HbConnectiontest {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<ContactData> result = session.createQuery( "from ContactData where deprecated = '0000-00-00'" ).list();
-        for ( ContactData contacts : result ) {
-            System.out.println(contacts);
-        }
         session.getTransaction().commit();
         session.close();
+        for ( ContactData contacts : result ) {
+            System.out.println(contacts);
+            System.out.println(contacts.getGroups());
+        }
     }
 }

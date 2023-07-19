@@ -47,5 +47,7 @@ public class ContactCreationTest extends TestBase {
         assertEquals(after.size(), before.size() + 1);
         assertThat(after, equalTo(
                 before.withAdded(contactData.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+
+        verifyContactListinUI();
     }
 }
