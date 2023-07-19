@@ -40,9 +40,9 @@ public class ContactCreationTest extends TestBase {
 
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contactData) throws Exception {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         app.contact().create(contactData);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
 
         assertEquals(after.size(), before.size() + 1);
         assertThat(after, equalTo(

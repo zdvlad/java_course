@@ -1,6 +1,5 @@
 package ru.course.addressbook.tests;
 
-import org.hamcrest.MatcherAssert;
 import org.testng.annotations.Test;
 import ru.course.addressbook.model.ContactData;
 
@@ -14,7 +13,7 @@ public class ContactOptionsTest extends TestBase {
 
     @Test
     public void testAllOptions() throws Exception {
-        app.contact().returnToMainPage();
+        app.contact().returnToMainPage(app.getProperties());
         ContactData contactData = app.contact().all().iterator().next();
 
         ContactData contactDataFromEditForm = app.contact().fromEditForm(contactData);

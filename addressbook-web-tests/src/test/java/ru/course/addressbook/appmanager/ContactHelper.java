@@ -8,6 +8,7 @@ import ru.course.addressbook.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class ContactHelper extends HelperBase {
     private Contacts contactsCache = null;
@@ -29,7 +30,11 @@ public class ContactHelper extends HelperBase {
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("address"), contactData.getAddress());
         type(By.name("mobile"), contactData.getMobilePhone());
+        type(By.name("home"), contactData.getHomePhone());
+        type(By.name("work"), contactData.getWorkPhone());
         type(By.name("email"), contactData.getEmail());
+        type(By.name("email2"), contactData.getEmail2());
+        type(By.name("email3"), contactData.getEmail3());
     }
 
     public void selectContact(int index) {
@@ -61,8 +66,8 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home page"));
     }
 
-    public void returnToMainPage() {
-        open("http://localhost/addressbook/");
+    public void returnToMainPage(Properties properties) {
+        properties.getProperty("web.baseURL");
     }
 
     public boolean isThereContact() {
@@ -77,20 +82,20 @@ public class ContactHelper extends HelperBase {
         returnHomePage();
     }
 
-    public void edit(ContactData contactData) {
+    public void edit(ContactData contactData, Properties properties) {
         editContactById(contactData);
         fillContactsData(contactData);
         submitEditContact();
         contactsCache = null;
-        returnToMainPage();
+        returnToMainPage(properties);
     }
 
-    public void delete(ContactData contactData) {
+    public void delete(ContactData contactData, Properties properties) {
         selectContactById(contactData);
         deleteContact();
         submitContactDeleteByAlert();
         contactsCache = null;
-        returnToMainPage();
+        returnToMainPage(properties);
     }
 
 

@@ -70,7 +70,11 @@ public class ContactDataGenerator {
                     .withLastName(String.format("LastName %s", i))
                     .withEmail(String.format("Email %s", i))
                     .withMobilePhoneNumber(String.format("8888%s", i))
-                    .withAddress(String.format("ул. Пионерская %s", i + 10)));
+                    .withAddress(String.format("ул. Пионерская %s", i + 10))
+                    .withEmail2("test2@test2")
+                    .withEmail3("test3@test3")
+                    .withHomePhoneNumber("999")
+                    .withWorkPhoneNumber("111"));
         }
         return contactData;
     }

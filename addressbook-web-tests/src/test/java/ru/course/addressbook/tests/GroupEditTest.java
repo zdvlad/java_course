@@ -13,25 +13,26 @@ public class GroupEditTest extends TestBase {
 
     @BeforeMethod
     public void ensurePredications() {
-        app.goTo().groupPage();
-        if (!app.group().isThereGroup()) {
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
             app.group().create(new GroupData().withName("test1"));
         }
     }
 
     @Test
     public void testGroupEdit() throws Exception {
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         GroupData modifiedGroup = before.iterator().next();
-        GroupData groupData = new GroupData().
+        GroupData group = new GroupData().
                 withId(modifiedGroup.getId()).
                 withName("test1").
                 withHeader("test2").
                 withFooter("test3");
-        app.group().edit(modifiedGroup);
-        Groups after = app.group().all();
+        app.goTo().groupPage();
+        app.group().edit(group);
+        Groups after = app.db().groups();
 
         assertEquals(after.size(), before.size());
-        assertThat(after, equalTo(before.without(modifiedGroup).withAdded(groupData)));
+        assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
     }
 }
