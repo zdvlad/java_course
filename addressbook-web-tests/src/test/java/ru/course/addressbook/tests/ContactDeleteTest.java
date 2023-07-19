@@ -13,9 +13,16 @@ public class ContactDeleteTest extends TestBase {
 
     @BeforeMethod
     public void ensurePredications() {
-        if (!app.contact().isThereContact()) {
-            app.contact().create(new ContactData().withFirstName("Denis").withLastName("Zakharov").
-                    withMobilePhoneNumber("9023557076").withEmail("z.d.vlad96@mail.ru"));
+        if (app.db().contacts().size() == 0) {
+            app.contact().create(new ContactData().withFirstName("Denis")
+                    .withLastName("Markov")
+                    .withMobilePhoneNumber("5553535")
+                    .withEmail("test@mail.ru")
+                    .withAddress("ул. Летняя 9")
+                    .withEmail2("test1@mail.ru")
+                    .withEmail3("test2@mail.ru")
+                    .withHomePhoneNumber("9999")
+                    .withWorkPhoneNumber("1100"));
         }
     }
 

@@ -38,7 +38,7 @@ public class ApplicationManager {
             wd = new ChromeDriver();
         else if (browser.equals(BrowserType.FIREFOX))
             wd = new FirefoxDriver();
-        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         contactHelper = new ContactHelper(wd);
         sessionHelper = new SessionHelper(wd);
         groupHelper = new GroupHelper(wd);

@@ -26,6 +26,22 @@ public class ContactData {
     private String address;
 
     @Expose
+    @Type(type = "text")
+    private String address2;
+
+    @Expose
+    @Type(type = "text")
+    private String im;
+
+    @Expose
+    @Type(type = "text")
+    private String im2;
+
+    @Expose
+    @Type(type = "date")
+    private String login;
+
+    @Expose
     @Column(name = "mobile")
     @Type(type = "text")
     private String mobilePhone;
