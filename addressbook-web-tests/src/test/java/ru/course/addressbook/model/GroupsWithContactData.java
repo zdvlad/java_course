@@ -8,17 +8,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "address_in_groups")
-public class GroupsWithContactData {
+public class GroupsWithContactData implements Serializable {
 
     @Id
     @Column(name = "id", unique = true)
     @Type(type = "int")
     private int id;
 
+    @Id
     @Column(name = "group_id", unique = true)
     @Type(type = "int")
     private int group_id;
