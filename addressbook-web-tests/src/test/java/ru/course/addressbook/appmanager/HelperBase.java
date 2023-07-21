@@ -12,10 +12,6 @@ public class HelperBase {
         this.wd = wd;
     }
 
-    protected void open(String url) {
-        wd.get(url);
-    }
-
     protected void click(By locator) {
         wd.findElement(locator).click();
     }
@@ -42,10 +38,6 @@ public class HelperBase {
 
     public void acceptAlert() {
         wd.switchTo().alert().accept();
-    }
-
-    public void dismissAlert() {
-        wd.switchTo().alert().dismiss();
     }
 
     public boolean isElementExist(By locator)

@@ -1,9 +1,9 @@
 package ru.course.addressbook.tests;
 
+import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.course.addressbook.appmanager.ApplicationManager;
-import org.openqa.selenium.remote.BrowserType;
 import ru.course.addressbook.model.ContactData;
 import ru.course.addressbook.model.Contacts;
 import ru.course.addressbook.model.GroupData;

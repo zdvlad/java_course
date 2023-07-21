@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.course.addressbook.model.ContactData;
 import ru.course.addressbook.model.GroupData;
 import ru.course.addressbook.model.Groups;
 

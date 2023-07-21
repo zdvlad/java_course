@@ -3,12 +3,14 @@ package ru.course.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import ru.course.addressbook.model.ContactData;
 import ru.course.addressbook.model.Contacts;
+import ru.course.addressbook.model.GroupData;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class ContactHelper extends HelperBase {
     private Contacts contactsCache = null;
@@ -66,8 +68,12 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home page"));
     }
 
+    public void returnToGroupPageWithContact(GroupData group) {
+        click(By.linkText(String.format("group page \"%s\"", group.getName())));
+    }
+
     public void returnToMainPage(Properties properties) {
-        properties.getProperty("web.baseURL");
+        wd.get(properties.getProperty("web.baseURL"));
     }
 
     public boolean isThereContact() {
@@ -98,21 +104,34 @@ public class ContactHelper extends HelperBase {
         returnToMainPage(properties);
     }
 
+    public void inGroup(ContactData contact, GroupData group) {
+        selectContactById(contact);
+        selectGroup(group, true);
+        addContact();
+        returnToGroupPageWithContact(group);
+    }
 
-    public List<ContactData> list() {
-        List<ContactData> contact = new ArrayList<ContactData>();
-        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[@name='entry']"));
-        for (WebElement element : elements) {
-            String firstName = element.findElement(By.xpath(".//td[3]")).getText();
-            String secondName = element.findElement(By.xpath(".//td[2]")).getText();
-            int id = Integer.parseInt(element.findElement(By.xpath(".//td")).findElement(By.tagName("input")).getAttribute("value"));
-            contact.add(new ContactData().withId(id).withFirstName(firstName).withLastName(secondName));
-        }
-        return contact;
+    private void addContact() {
+        click(By.name("add"));
+    }
+
+    public void outGroup(ContactData contact, GroupData group) {
+        selectGroup(group, false);
+        selectContactById(contact);
+        removeContact();
+        returnToGroupPageWithContact(group);
+    }
+
+    private void removeContact() {
+        click(By.name("remove"));
+    }
+
+    private void selectGroup(GroupData group, boolean addToGroup) {
+        new Select(wd.findElement(By.name(addToGroup ? "to_group" : "group"))).selectByVisibleText(group.getName());
     }
 
     public Contacts all() {
-        if(contactsCache != null)
+        if (contactsCache != null)
             return new Contacts(contactsCache);
 
         contactsCache = new Contacts();
@@ -155,5 +174,9 @@ public class ContactHelper extends HelperBase {
                 .withEmail(email)
                 .withEmail2(email2)
                 .withEmail3(email3);
+    }
+
+    public boolean hasGroup(ContactData contactData, int groupid) {
+        return !contactData.getGroups().stream().filter(g->g.getId() == groupid).collect(Collectors.toSet()).isEmpty();
     }
 }

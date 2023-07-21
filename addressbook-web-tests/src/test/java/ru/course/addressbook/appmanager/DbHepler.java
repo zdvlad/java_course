@@ -5,12 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import ru.course.addressbook.model.ContactData;
-import ru.course.addressbook.model.Contacts;
-import ru.course.addressbook.model.GroupData;
-import ru.course.addressbook.model.Groups;
+import ru.course.addressbook.model.*;
 
-import java.security.acl.Group;
 import java.util.List;
 
 public class DbHepler {
@@ -44,5 +40,16 @@ public class DbHepler {
         session.getTransaction().commit();
         session.close();
         return new Contacts(result);
+    }
+
+    public GroupWithContacts groupWithContact()
+    {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<GroupsWithContactData> result = session.createQuery( "from GroupsWithContactData").list();
+        System.out.println("Из запроса: "+result.size());
+        session.getTransaction().commit();
+        session.close();
+        return new GroupWithContacts(result);
     }
 }
