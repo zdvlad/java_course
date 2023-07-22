@@ -1,8 +1,13 @@
 package ru.course.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.course.addressbook.model.*;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -32,30 +37,29 @@ public class ContactAddToGroupTest extends TestBase {
 
     @Test
     public void testContactAddToGroup() {
-        Contacts contacts = app.db().contacts();//берем из бд контакты
-        ContactData contact = contacts.iterator().next();//выбираем какой-то один контакт
+        Contacts before = app.db().contacts();//берем из бд контакты
+        ContactData contactToAdd = before.iterator().next();//выбираем какой-то один контакт
 
         Groups groups = app.db().groups();//берем из бд группы
         GroupData group = groups.iterator().next();//выбираем какую-то группу
 
-        GroupsWithContactData groupsWithContactData = new GroupsWithContactData().withId(contact.getId()).withGroupId(group.getId());
-
         //если контакт в группе
-        if(app.contact().hasGroup(contact, group.getId())){
-            app.contact().outGroup(contact, group);
+        existGroupWithContact(contactToAdd, group);
+
+        app.contact().inGroup(contactToAdd, group);//добавляем контакт в группу
+
+        Contacts after = app.db().contacts();
+
+        ContactData contactAdded = after.stream().filter(
+                c->c.getId() == contactToAdd.getId()).collect(Collectors.toSet()).iterator().next();//ищем добавленный контакт
+
+        Assert.assertTrue(app.contact().hasGroup(contactAdded, group.getId()));
+    }
+
+    private void existGroupWithContact(ContactData contactAdd, GroupData group) {
+        if(app.contact().hasGroup(contactAdd, group.getId())){
+            app.contact().outGroup(contactAdd, group);//удалим контакт из группы
             app.contact().returnToMainPage(app.getProperties());
         }
-
-        GroupWithContacts before = app.db().groupWithContact();//берем  из бд связи
-
-        app.contact().inGroup(contact, group);//добавляем контакт в группу
-
-        GroupWithContacts after = app.db().groupWithContact();//берем снова из бд связи
-
-        assertThat(after.size(), equalTo(before.size()+1));
-        assertThat(after, equalTo(before.withAdded(groupsWithContactData)));
-
-        System.out.println(before.withAdded(groupsWithContactData));
-        System.out.println(after);
     }
 }

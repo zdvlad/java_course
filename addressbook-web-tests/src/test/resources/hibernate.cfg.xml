@@ -24,6 +24,5 @@
         <!--  Names the annotated entity class  -->
         <mapping class="ru.course.addressbook.model.GroupData"/>
         <mapping class="ru.course.addressbook.model.ContactData"/>
-        <mapping class="ru.course.addressbook.model.GroupsWithContactData"/>
     </session-factory>
 </hibernate-configuration>

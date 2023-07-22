@@ -41,15 +41,4 @@ public class DbHepler {
         session.close();
         return new Contacts(result);
     }
-
-    public GroupWithContacts groupWithContact()
-    {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        List<GroupsWithContactData> result = session.createQuery( "from GroupsWithContactData").list();
-        System.out.println("Из запроса: "+result.size());
-        session.getTransaction().commit();
-        session.close();
-        return new GroupWithContacts(result);
-    }
 }

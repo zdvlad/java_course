@@ -92,10 +92,6 @@ public class ContactData {
         return new Groups(groups);
     }
 
-    public void setGroups(Set<GroupData> groups) {
-        this.groups = groups;
-    }
-
     public ContactData withFirstName(String firstName) {
         this.firstName = firstName;
         return this;
