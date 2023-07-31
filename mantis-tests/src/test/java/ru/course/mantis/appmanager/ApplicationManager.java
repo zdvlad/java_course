@@ -22,6 +22,7 @@ public class ApplicationManager {
     private MailHelper mail;
     private ChangePassswordHelper password;
     private DbHelper dbHelper;
+    private SoapHelper soap;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -73,7 +74,6 @@ public class ApplicationManager {
                 wd = new FirefoxDriver();
             wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             wd.get(properties.getProperty("web.baseURL"));
-
         }
         return wd;
     }
@@ -94,5 +94,12 @@ public class ApplicationManager {
 
     public DbHelper db() {
         return dbHelper;
+    }
+
+    public SoapHelper soap() {
+        if (soap == null)
+            soap = new SoapHelper(this);
+
+        return soap;
     }
 }
