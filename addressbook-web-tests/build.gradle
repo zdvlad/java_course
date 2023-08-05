@@ -16,6 +16,7 @@ dependencies {
     compile "org.glassfish.jaxb:jaxb-runtime:2.3.2"
     compile "jakarta.xml.ws:jakarta.xml.ws-api:4.0.0"
     compile "com.sun.xml.ws:jaxws-rt:4.0.1"
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 }
 
 task testGroups(type: Test){
