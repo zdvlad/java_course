@@ -1,0 +1,13 @@
+[
+  {
+    "firstName": "FirstName 0",
+    "lastName": "LastName 0",
+    "address": "ул. Пионерская 10",
+    "mobilePhone": "88880",
+    "homePhone": "999",
+    "workPhone": "111",
+    "email": "Email 0",
+    "email2": "test2@test2",
+    "email3": "test3@test3"
+  }
+]

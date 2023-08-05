@@ -12,6 +12,10 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.1'
     compile 'mysql:mysql-connector-java:5.1.38'
     compile 'org.hibernate:hibernate-core:5.1.0.Final'
+    compile "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
+    compile "org.glassfish.jaxb:jaxb-runtime:2.3.2"
+    compile "jakarta.xml.ws:jakarta.xml.ws-api:4.0.0"
+    compile "com.sun.xml.ws:jaxws-rt:4.0.1"
 }
 
 task testGroups(type: Test){
