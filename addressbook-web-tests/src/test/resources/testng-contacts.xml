@@ -7,6 +7,8 @@
             <class name="ru.course.addressbook.tests.ContactEditTest" />
             <class name="ru.course.addressbook.tests.ContactDeleteTest" />
             <class name="ru.course.addressbook.tests.ContactAddToGroupTest" />
+            <class name="ru.course.addressbook.tests.ContactRemoveFromGroupTest" />
+            <class name="ru.course.addressbook.tests.ContactOptionsTest" />
         </classes>
     </test>
 </suite>
